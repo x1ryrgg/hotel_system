@@ -3,7 +3,7 @@ import os
 from pathlib import Path
 from fastapi import HTTPException
 from pydantic_settings import BaseSettings
-from pydantic import field_validator
+from pydantic import field_validator, AmqpDsn
 from dotenv import load_dotenv
 from starlette import status
 
@@ -11,6 +11,8 @@ load_dotenv()
 
 
 class Settings(BaseSettings):
+    # Broker + taskiq
+    broker_url: str = "amqp://guest:guest@localhost:5672//"
     # DataBase
     DB_URL: str = os.getenv("DATABASE_URL", "")
     # Mail SMTP
