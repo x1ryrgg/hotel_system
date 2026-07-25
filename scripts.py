@@ -4,12 +4,11 @@ from core.database import async_session_maker
 from core.models.hotel import Hotel, RoomInformation, UserHotel, Room, RoomType
 from core.models.user import User, UserRole
 import asyncio
-import os
 from dotenv import load_dotenv
 from sqlalchemy.sql import select
 from sqlalchemy.orm import joinedload, selectinload
 from users_logic.security import hash_password, verify_password
-from core.email_service import email_service
+from core.utils.mailing import email_service
 
 load_dotenv()
 

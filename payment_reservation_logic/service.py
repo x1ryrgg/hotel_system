@@ -6,9 +6,9 @@ from decimal import Decimal
 from sqlalchemy import select, Result, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from fastapi import HTTPException, status, Depends
+from fastapi import HTTPException, status
 
-from core.email_service import EmailService, email_service
+from core.utils.mailing import EmailService
 from core.models.hotel import HotelBookStatus
 from core.models.reservation import Reservation, ReservationStatus
 from core.models.user import User
@@ -19,7 +19,7 @@ from payment_reservation_logic.crud.reservation import (
     calculate_price_booking_range,
 )
 from payment_reservation_logic.dependencies import get_bank_account_by_user_id, get_payment_by_id
-from cashews import cache
+from core.tasks.senders import send_verification_code_email_task, send_text_email_task
 
 
 class AccountReplenishment(ABC):
@@ -94,7 +94,7 @@ class DefaultReplenishmentService(AccountReplenishment):
         await self.db.commit()
         await self.db.refresh(new_payment)
 
-        await self.code_sender.send_confirmation_code(to_email=self.user.email, code=code)
+        await send_verification_code_email_task.kiq(to_email=self.user.email, code=code)
 
         return new_payment
 

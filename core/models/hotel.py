@@ -1,18 +1,14 @@
 from datetime import datetime
 from decimal import Decimal
 from enum import Enum
-import uuid
-from random import choices
 
-from sqlalchemy import Column, Integer, String, DateTime, CheckConstraint, Enum as SQLEnum, Numeric
-from sqlalchemy.orm import relationship
+from sqlalchemy import Integer, String, DateTime, CheckConstraint, Numeric
 from sqlalchemy.sql import func
 from sqlalchemy.sql.schema import ForeignKey
 from sqlalchemy.sql.sqltypes import Float, Text
 from sqlalchemy.orm import relationship, Mapped, mapped_column
 from typing import List, Optional, TYPE_CHECKING
 
-from core.mixins import UserRelationMixin
 from core.models.base import Base
 
 if TYPE_CHECKING:

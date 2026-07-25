@@ -1,21 +1,14 @@
-from typing import List
-from fastapi import APIRouter, Depends, status
-from sqlalchemy.ext.asyncio import AsyncSession
+from fastapi import APIRouter
 
-from core.database import get_db
-from core.models import Reservation
-from core.models.user import UserRole, User
-from core.permissions import RoleChecker
-from hotel_logic.dependencies import get_hotel_by_id, get_room_by_id, check_manager_permissions
+from core.utils.permissions import RoleChecker
 from payment_reservation_logic.crud.reservation import get_user_reservations
-from payment_reservation_logic.schemas.bank_account import *
-from payment_reservation_logic.crud.bank_account import *
 from payment_reservation_logic.dependencies import *
 from payment_reservation_logic.schemas.reservation import (
     ReservationResponse,
     SimpleReservationResponse, CreateReservationRequest,
 )
 from payment_reservation_logic.service import BookingService
+from core.tasks.senders import send_verification_code_email_task, send_text_email_task
 
 router = APIRouter(
     prefix='/reservation',
@@ -50,7 +43,7 @@ async def book_hotel_room(dto: CreateReservationRequest,
 
     await cache.delete(f"reservations:user:{user.id}")
 
-    await email_service.send_text_email(
+    await send_text_email_task.kiq(
         to_email=user.email, text="Оплата номера отеля успешна."
     )
 

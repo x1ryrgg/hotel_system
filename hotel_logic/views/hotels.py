@@ -5,13 +5,10 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from core.database import get_db
 from core.models import Hotel
 from core.models.user import UserRole, User
-from core.permissions import RoleChecker
-from core.logging_system import logger
+from core.utils.permissions import RoleChecker
 from hotel_logic.dependencies import get_hotel_by_id, check_manager_permissions
 from hotel_logic.schemas import HotelCreate, HotelResponse, HotelUpdate
 from hotel_logic.cruds import hotel_crud
-from cashews import cache
-
 
 router = APIRouter(
     prefix="/hotels",

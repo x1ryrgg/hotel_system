@@ -15,22 +15,29 @@ from payment_reservation_logic.views.payment import router as payment_router
 from payment_reservation_logic.views.reservation import router as reservation_router
 from payment_reservation_logic.views.bank_account import router as bank_account_router
 from core.config import settings
+from core.broker_taskiq import broker
 
 
 # uvicorn main:app --reload - запуск приложение на uvicron
 # netstat -ano | findstr :8000 - нахождение активных процессов
 # taskkill /PID 7348 /F - завершение активных процессов
 # docker exec -it redis-container redis-cli - запуск redis-cli
+# taskiq worker core.broker_taskiq:broker core.tasks.senders - запуск taskiq (при нескольких файлах перечислять их)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     cache.setup(settings.redis_url)
 
+    if not broker.is_worker_process:
+        await broker.startup()
+
     yield
 
+    if not broker.is_worker_process:
+        await broker.shutdown()
     await cache.close()
 
-app = FastAPI(lifespan=lifespan, title='TEST FASTAPI')
+app = FastAPI(lifespan=lifespan, title='HOTEL API')
 
 app.include_router(auth_router)
 app.include_router(user_router)
@@ -40,7 +47,6 @@ app.include_router(reservation_router)
 app.include_router(hotel_router)
 app.include_router(room_router)
 app.include_router(room_information)
-
 
 
 @app.exception_handler(HTTPException)

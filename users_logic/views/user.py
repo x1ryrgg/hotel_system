@@ -1,20 +1,15 @@
-import traceback
 from typing import List
 
 from sqlalchemy.ext.asyncio import AsyncSession
 from core.database import get_db
-from sqlalchemy import select
 from starlette import status
 
 from users_logic.dependencies import get_user_by_id
 from core.models.user import UserRole
-from core.permissions import get_current_user, RoleChecker
-from users_logic.schemas.schemas import UserCreate, UserResponse, UserUpdate
-from fastapi import Depends, APIRouter, HTTPException
-from fastapi.responses import JSONResponse
+from core.utils.permissions import get_current_user, RoleChecker
+from users_logic.schemas.schemas import UserResponse, UserUpdate
+from fastapi import Depends, APIRouter
 from core.models.user import User
-from pydantic import EmailStr
-from core.logging_system import logger
 from users_logic import crud
 
 

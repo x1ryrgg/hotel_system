@@ -1,17 +1,13 @@
-from datetime import datetime, timedelta, timezone
 import random
 
 from fastapi import HTTPException, status
-from decimal import Decimal
 
-from core.email_service import email_service
 from core.logging_system import logger
 from sqlalchemy import select
-from core.models.payment import BankAccount, Payment, PaymentStatus, VerificationCode
+from core.models.payment import BankAccount
 from core.models.user import User
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from payment_reservation_logic.dependencies import get_bank_account_by_user_id, get_payment_by_id
 
 async def generate_account_number(db: AsyncSession) -> str:
     """ Генерация номера счета """

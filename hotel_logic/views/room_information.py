@@ -5,7 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from core.database import get_db
 from core.models import RoomInformation
 from core.models.user import UserRole, User
-from core.permissions import RoleChecker
+from core.utils.permissions import RoleChecker
 from hotel_logic.dependencies import get_room_information_by_id
 from hotel_logic.schemas import RoomInformationResponse, RoomInformationCreate, RoomInformationUpdate
 from hotel_logic.cruds import room_crud

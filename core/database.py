@@ -4,7 +4,7 @@ from sqlalchemy import Column, Integer
 from core.config import settings
 
 
-DATABASE_URL = settings.DB_URL
+DATABASE_URL = settings.DATABASE_URL
 
 engine = create_async_engine(
     DATABASE_URL,

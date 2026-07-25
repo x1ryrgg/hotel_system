@@ -1,13 +1,11 @@
-from datetime import datetime, date
+from datetime import date
 from decimal import Decimal
 from typing import TYPE_CHECKING, Optional
 from enum import Enum
-from sqlalchemy import Enum as SQLEnum
 from sqlalchemy.orm import relationship, mapped_column, Mapped
-from sqlalchemy.sql.schema import Column, ForeignKey
+from sqlalchemy.sql.schema import ForeignKey
 from sqlalchemy import Index, Numeric
 from sqlalchemy.sql.sqltypes import Integer, DateTime, String
-from core.mixins import UserRelationMixin
 from core.models.base import Base
 
 if TYPE_CHECKING:

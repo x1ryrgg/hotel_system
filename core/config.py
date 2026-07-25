@@ -12,9 +12,9 @@ load_dotenv()
 
 class Settings(BaseSettings):
     # Broker + taskiq
-    broker_url: str = "amqp://guest:guest@localhost:5672//"
+    BROKER_URL: str
     # DataBase
-    DB_URL: str = os.getenv("DATABASE_URL", "")
+    DATABASE_URL: str
     # Mail SMTP
     MAIL_USERNAME: str
     MAIL_PASSWORD: str
@@ -26,7 +26,7 @@ class Settings(BaseSettings):
     REDIS_PORT: int
     REDIS_DB: int
 
-    @field_validator('DB_URL')
+    @field_validator('DATABASE_URL')
     @classmethod
     def validate_db_url(cls, v: str):
         if not v:
