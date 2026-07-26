@@ -1,1 +1,1 @@
-![Схема базы данных](docs/hotel_db_diagram.png)
+![Схема базы данных](docs/db_hotel_diagram.png)
