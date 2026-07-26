@@ -75,3 +75,38 @@ FastAPI_Practic/
 ├── docker-compose.yml            # Оркестрация сервисов (App, DB, Redis, RabbitMQ, Worker)
 ├── Dockerfile                    # Сборка образа FastAPI
 └── main.py                       # Точка входа в FastAPI приложение
+
+```
+---
+
+## команды для локальной разработки, отладки и тестирования сервисов.
+
+### Запуск компонентов проекта
+
+* **Запуск FastAPI сервера:**
+  ```bash
+  uvicorn main:app --reload
+  
+* **Запуск отдельного контейнера Redis:**
+  ```bash
+  docker run -d --name redis-container -p 6379:6379 redis:alpine
+  
+* **Запуск отдельного контейнера RabbitMQ (с веб-админкой):**
+  ```bash
+  docker run -d --name rabbitmq-container -p 5672:5672 -p 15672:15672 rabbitmq:3-management
+  
+* **Подключение к консоли Redis (redis-cli) внутри контейнера:**
+  ```bash
+  docker exec -it redis-container redis-cli
+  
+* **Запуск вокера для taskiq:**
+  ```bash
+  taskiq worker core:broker -fsd --tasks-pattern "core/tasks/*.py"
+  
+* **Полный запуск всего окружения через Docker Compose:**
+  ```bash
+  docker-compose up --build -d
+  
+* **Полный запуск всего окружения через Docker Compose:**
+  ```bash
+  docker-compose down
