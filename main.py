@@ -23,6 +23,7 @@ from core.broker_taskiq import broker
 # taskkill /PID 7348 /F - завершение активных процессов
 # docker exec -it redis-container redis-cli - запуск redis-cli
 # taskiq worker core.broker_taskiq:broker core.tasks.senders - запуск taskiq (при нескольких файлах перечислять их)
+# taskiq worker core:broker -fsd --tasks-pattern "core/tasks/*.py"
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):

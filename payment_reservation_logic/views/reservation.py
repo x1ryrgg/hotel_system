@@ -8,7 +8,7 @@ from payment_reservation_logic.schemas.reservation import (
     SimpleReservationResponse, CreateReservationRequest,
 )
 from payment_reservation_logic.service import BookingService
-from core.tasks.senders import send_verification_code_email_task, send_text_email_task
+from core.tasks import send_text_email_task
 
 router = APIRouter(
     prefix='/reservation',
