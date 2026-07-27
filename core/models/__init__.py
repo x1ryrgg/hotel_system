@@ -6,11 +6,12 @@ __all__= (
     "RoomInformation",
     "Reservation",
     "BankAccount",
-    "Payment"
+    "Payment",
+    "VerificationCode",
 )
 
 from .base import Base
 from .hotel import Hotel, Room, RoomInformation
 from .user import User
 from .reservation import Reservation
-from .payment import BankAccount, Payment
+from .payment import BankAccount, Payment, VerificationCode

@@ -1,3 +1,3 @@
-__all__ = ("broker", )
+__all__ = ("broker", 'scheduler')
 
-from .broker_taskiq import broker
+from .broker_taskiq import broker, scheduler

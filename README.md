@@ -102,6 +102,10 @@ FastAPI_Practic/
 * **Запуск вокера для taskiq:**
   ```bash
   taskiq worker core:broker -fsd --tasks-pattern "core/tasks/*.py"
+
+* **Запуск периодических tasqid задач**
+  ```bash
+  taskiq scheduler core:scheduler -fsd --tasks-pattern "core/tasks/*.py"
   
 * **Полный запуск всего окружения через Docker Compose:**
   ```bash
